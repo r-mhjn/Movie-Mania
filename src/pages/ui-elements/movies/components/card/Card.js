@@ -6,12 +6,13 @@ import "./card.scss";
 
 const Card = ({ movie }) => {
   return (
-    <Link to={`/movie/${movie.title}`} state={movie} style={{ textDecoration: "none" }}>  
+    <Link to={`/movie/${movie.title}`} state={movie} style={{ textDecoration: "none" }}>
       <div className="card-container">
         <img
           src={PosterUrl}
           alt="movie"
         />
+        <div class="overlay">My Name is John</div>
       </div>
       <p className="movie-title">{movie.title}</p>
     </Link>
