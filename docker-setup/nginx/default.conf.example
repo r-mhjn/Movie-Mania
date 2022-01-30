@@ -1,0 +1,70 @@
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m inactive=7d use_temp_path=off;
+
+upstream input_tool_upstream {
+  server localhost:3000;
+}
+
+server {
+  listen 80 default_server;
+
+  server_name _;
+
+  server_tokens off;
+
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection 'upgrade';
+  proxy_set_header Host $host;
+  proxy_cache_bypass $http_upgrade;
+
+  #set skip cache request to 1
+  set $fastcgi_skipcache 1;
+  set $cache_key "$scheme$request_method$host$request_uri";
+  if ($request_uri ~* "^\/(trending-stories)\/(\?name=)(.*)$") {
+      set $fastcgi_skipcache 0;
+  }
+
+  location /stickers_page {
+      rewrite ^/stickers_page(.*)$ $scheme://$host/stickerstore$1 redirect;
+  }
+
+  location /_next/static {
+    proxy_cache STATIC;
+    proxy_pass http://input_tool_upstream;
+
+    # For testing cache - remove before deploying to production
+    # add_header X-Cache-Status $upstream_cache_status;
+  }
+
+  location /static {
+    proxy_cache STATIC;
+    proxy_ignore_headers Cache-Control;
+    proxy_cache_valid 60m;
+    proxy_pass http://input_tool_upstream;
+
+    # For testing cache - remove before deploying to production
+    # add_header X-Cache-Status $upstream_cache_status;
+  }
+
+  location / {
+    proxy_pass http://input_tool_upstream;
+  }
+
+  location /favicon.ico {
+    access_log off;
+  }
+
+  location /health-check {
+    return 200 'Health Check was Successful';
+    add_header Content-Type text/plain;
+    access_log off;
+  }
+
+  # Deny all attempts to access hidden files
+  # such as .htaccess, .htpasswd, .DS_Store (Mac).
+  location ~ /\. {
+    deny all;
+  }
+  
+
+}
