@@ -1,6 +1,4 @@
 .card-container {
-  // display: flex;
-  // flex-direction: column;
   border-radius: 5px;
   cursor: pointer;
   -moz-osx-font-smoothing: grayscale;
@@ -13,23 +11,11 @@
     max-height: 30.6rem;
   }
 
-  // width: 25vw;
-  // height: 27rem;
-
-  // background-image: url("https://m.media-amazon.com/images/M/MV5BOWUxODE3ZTYtYjU5Mi00MWYwLWExODktMDFkMWQzYzdhYTdhXkEyXkFqcGdeQXVyODA1NjQ0OTY@._V1_SX300.jpg");
-  // background-size: contain;
-  // background-repeat: no-repeat;
-  // background-position: 50%;
-  // box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
-
   img {
-    // object-fit: contain;
     max-width: 80%;
-    /* or any custom size */
     height: 100%;
     padding: 0% 2.5%;
     object-fit: contain;
-    // border-radius: 10px;
   }
 
   &:hover {

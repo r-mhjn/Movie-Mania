@@ -6,16 +6,12 @@ import "./card.scss";
 
 const Card = ({ movie }) => {
   return (
-
-    //  target="_blank" rel="noopener noreferrer"
-    <Link to={`/movie/${movie.title}`} state={movie} style={{ textDecoration: "none" }}>
-      {/* <div> */}
+    <Link to={`/movie/${movie.title}`} state={movie} style={{ textDecoration: "none" }}>  
       <div className="card-container">
         <img
           src={PosterUrl}
           alt="movie"
         />
-
       </div>
       <p className="movie-title">{movie.title}</p>
     </Link>

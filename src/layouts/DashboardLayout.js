@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "../components/navbar/Navbar";
+import NavbarComponent from "../components/navbar/Navbar";
 import Content from "../components/content/Content";
 
 const DashboardLayout = ({ children }) => (
     <React.Fragment>
-        <Navbar />
+        <NavbarComponent />
         <Content>{children}</Content>
     </React.Fragment>
 );
